@@ -15,17 +15,19 @@ $height = 480;
 <button onclick="startVideo()">カメラ</button>
 <button onclick="startFrame()">フレーム</button>
 <button onclick="onShutter()">シャッター</button>
-<button onclick="save()">サーバーに保存</button>
 <br />
 <div id="box" style="width: <?=$width?>; height: <?=$height?>; position: relative; border: 1px solid #000000;">
   <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute;"></canvas>
   <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute;" muted></video>
 </div>
+<br />
 <div id="box2" style="width: <?=$width?>; height: <?=$height?>; border: 1px solid #000000;">
   <canvas id="still" width="<?=$width?>" height="<?=$height?>"></canvas>
 </div>
+<button onclick="save()">サーバーに保存</button>
+<br />
 <div>
-  <img src="./logs/test.png">
+  <img id="result" src="./logs/test.png">
 </div>
 
 <script>
@@ -85,6 +87,8 @@ function save() {
     })
     .then((json) => {
       console.log(json);
+      const result = document.querySelector("#result");
+      result.setAttribute('src', json.result);
     })
     .catch((error) => {
       alert('error!');

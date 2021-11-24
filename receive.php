@@ -9,4 +9,4 @@ $image = base64_decode($data);
 
 file_put_contents('./logs/test.png', $image);
 
-echo json_encode(['result' => 1]);
+echo json_encode(['result' => './logs/test.png?' . time()]);
