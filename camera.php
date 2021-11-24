@@ -1,6 +1,8 @@
 <?php
 $width = 640;
 $height = 480;
+
+// スマホ
 //$width = 300;
 //$height = 400;
 ?>
@@ -13,6 +15,7 @@ $height = 480;
 <button onclick="startVideo()">カメラ</button>
 <button onclick="startFrame()">フレーム</button>
 <button onclick="onShutter()">シャッター</button>
+<button onclick="save()">サーバーに保存</button>
 <br />
 <div id="box" style="width: <?=$width?>; height: <?=$height?>; position: relative; border: 1px solid #000000;">
   <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute;"></canvas>
@@ -20,6 +23,9 @@ $height = 480;
 </div>
 <div id="box2" style="width: <?=$width?>; height: <?=$height?>; border: 1px solid #000000;">
   <canvas id="still" width="<?=$width?>" height="<?=$height?>"></canvas>
+</div>
+<div>
+  <img src="./logs/test.png">
 </div>
 
 <script>
@@ -29,10 +35,11 @@ function startVideo() {
 
   navigator.mediaDevices.getUserMedia({
     video: {
-	  width: <?=$width?>,
-	  height: <?=$height?>,
-	  facingMode: "user"
-	},
+      //width: 640, // スマホ
+      width: <?=$width?>,
+      height: <?=$height?>,
+      facingMode: "user"
+    },
     audio: false,
   }).then(function (stream) { // success
     localStream = stream;
@@ -60,6 +67,28 @@ function onShutter() {
   const ctx = still.getContext("2d");
   ctx.clearRect(0, 0, still.width, still.height);
   ctx.drawImage(localVideo, 0, 0, still.width, still.height);
+}
+
+function save() {
+  const canvas = document.querySelector("#still");
+  const image = canvas.toDataURL("image/png");
+  const params = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({data: image}),
+  };
+  fetch("receive.php", params)
+    .then((response) => {
+      return response.json(); // JSONが返される想定
+    })
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((error) => {
+      alert('error!');
+    });
 }
 
 window.onload = function() {
