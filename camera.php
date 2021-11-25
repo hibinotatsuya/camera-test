@@ -18,13 +18,13 @@ $height = 1280;
 <button onclick="startFrame()">フレーム</button>
 <button onclick="onShutter()">シャッター</button>
 <br />
-<div id="box" style="width: <?=$width?>; height: <?=$height?>; position: relative; border: 1px solid #000000;">
+<div id="box" style="width: 630; height: 1120; position: relative; border: 1px solid #000000;">
   <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute;"></canvas>
-  <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute;" muted></video>
+  <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute; width: 630; height: 1120;" muted></video>
 </div>
 <br />
-<div id="box2" style="width: <?=$width?>; height: <?=$height?>; border: 1px solid #000000;">
-  <canvas id="still" width="<?=$width?>" height="<?=$height?>"></canvas>
+<div id="box2" style="width: 630; height: 1120; border: 1px solid #000000;">
+  <canvas id="still" width="<?=$width?>" height="<?=$height?>" style="width: 630; height: 1120;"></canvas>
 </div>
 <button onclick="save()">サーバーに保存</button>
 <br />
@@ -33,17 +33,32 @@ $height = 1280;
 </div>
 
 <script>
+let localVideo = document.querySelector('#local_video');
+let localStream = null;
+let cameraMode = { exact: "environment" };
+
 function startVideo() {
-  let localVideo = document.querySelector('#local_video');
-  let localStream;
+  if (localStream !== null) {
+    localStream.getVideoTracks().forEach((camera) => {
+      camera.stop();
+    });
+  }
+  if (cameraMode != 'user') {
+    cameraMode = 'user';
+  } else {
+    cameraMode = { exact: "environment" };
+  }
 
   navigator.mediaDevices.getUserMedia({
     video: {
-      width: 720, // スマホ
+      width: {
+        min: 720,
+      }, // スマホ
       //height: 1280, // スマホ
       //width: <?=$width?>,
       //height: <?=$height?>,
-      facingMode: "user"
+      //facingMode: "user",
+      facingMode: cameraMode,
     },
     audio: false,
   }).then(function (stream) { // success
