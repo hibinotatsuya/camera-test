@@ -19,7 +19,7 @@ $height = 1280;
 <button onclick="onShutter()">シャッター</button>
 <br />
 <div id="box" style="width: 630; height: 1120; position: relative; border: 1px solid #000000;">
-  <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute;"></canvas>
+  <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute; width: 630; height: 1120;"></canvas>
   <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute; width: 630; height: 1120;" muted></video>
 </div>
 <br />
@@ -29,7 +29,7 @@ $height = 1280;
 <button onclick="save()">サーバーに保存</button>
 <br />
 <div>
-  <img id="result" src="./logs/test.jpg">
+  <img id="result" src="./logs/test.jpg" style="width: 630; height: 1120;">
 </div>
 
 <script>

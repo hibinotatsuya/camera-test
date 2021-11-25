@@ -8,6 +8,7 @@ $data = str_replace(' ', '+', $data);
 $image = base64_decode($data);
 
 //file_put_contents('./logs/test.png', $image);
-file_put_contents('./logs/test.jpg', $image);
+$date = date('YmdHis');
+file_put_contents('./logs/test_' . $date . '.jpg', $image);
 
-echo json_encode(['result' => './logs/test.jpg?' . time()]);
+echo json_encode(['result' => './logs/test_' . $date . '.jpg']);
