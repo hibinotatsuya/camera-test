@@ -1,10 +1,12 @@
 <?php
-$width = 640;
-$height = 480;
+//$width = 1280;
+//$height = 720;
 
-// スマホ
+// スマホ 720*1280 9:16
 //$width = 300;
 //$height = 400;
+$width = 720;
+$height = 1280;
 ?>
 <html>
 <head>
@@ -27,7 +29,7 @@ $height = 480;
 <button onclick="save()">サーバーに保存</button>
 <br />
 <div>
-  <img id="result" src="./logs/test.png">
+  <img id="result" src="./logs/test.jpg">
 </div>
 
 <script>
@@ -37,9 +39,10 @@ function startVideo() {
 
   navigator.mediaDevices.getUserMedia({
     video: {
-      //width: 640, // スマホ
-      width: <?=$width?>,
-      height: <?=$height?>,
+      width: 720, // スマホ
+      //height: 1280, // スマホ
+      //width: <?=$width?>,
+      //height: <?=$height?>,
       facingMode: "user"
     },
     audio: false,
@@ -73,7 +76,7 @@ function onShutter() {
 
 function save() {
   const canvas = document.querySelector("#still");
-  const image = canvas.toDataURL("image/png");
+  const image = canvas.toDataURL("image/jpeg");
   const params = {
     method: "POST",
     headers: {
