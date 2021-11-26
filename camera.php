@@ -18,18 +18,18 @@ $height = 1280;
 <button onclick="startFrame()">フレーム</button>
 <button onclick="onShutter()">シャッター</button>
 <br />
-<div id="box" style="width: 630; height: 1120; position: relative; border: 1px solid #000000;">
-  <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute; width: 630; height: 1120;"></canvas>
-  <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute; width: 630; height: 1120;" muted></video>
+<div id="box" style="width: 360; height: 640; position: relative; border: 1px solid #000000;">
+  <canvas id="frame" width="<?=$width?>" height="<?=$height?>" style="z-index: 100; position: absolute; width: 360; height: 640;"></canvas>
+  <video id="local_video" autoplay playsinline width="<?=$width?>" height="<?=$height?>" style="z-index: 1; position: absolute; width: 360; height: 640;" muted></video>
 </div>
 <br />
-<div id="box2" style="width: 630; height: 1120; border: 1px solid #000000;">
-  <canvas id="still" width="<?=$width?>" height="<?=$height?>" style="width: 630; height: 1120;"></canvas>
+<div id="box2" style="width: 360; height: 640; border: 1px solid #000000;">
+  <canvas id="still" width="<?=$width?>" height="<?=$height?>" style="width: 360; height: 640;"></canvas>
 </div>
 <button onclick="save()">サーバーに保存</button>
 <br />
 <div>
-  <img id="result" src="./logs/test.jpg" style="width: 630; height: 1120;">
+  <img id="result" src="./logs/test.jpg" style="width: 360; height: 640;">
 </div>
 
 <script>
