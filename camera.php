@@ -49,6 +49,7 @@ function startVideo() {
     cameraMode = { exact: "environment" };
   }
 
+  // 本当はここでカメラのAPIがあるかチェックが必要
   navigator.mediaDevices.getUserMedia({
     video: {
       width: {
